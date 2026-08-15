@@ -14,19 +14,19 @@
  * }
  */
 class Solution {
+    private int maxDia = 0;
     public int diameterOfBinaryTree(TreeNode root) {
-        //your code goes here
-        if(root == null)return 0;
-        int[] maxDia = new int[1];
-        height(root,maxDia);
-        return maxDia[0];
+        // reset for multiple test cases
+        maxDia = 0;
+        height(root);
+        return maxDia;
     }
-    public int height(TreeNode root,int[] maxDia){
+    public int height(TreeNode root){
         if(root == null)return 0;
-        int lH = height(root.left,maxDia);
-        int rH = height(root.right,maxDia);
+        int lH = height(root.left);
+        int rH = height(root.right);
 
-        maxDia[0] = Math.max(maxDia[0],lH+rH);
+        maxDia = Math.max(maxDia,lH+rH);
 
         return 1+Math.max(lH,rH);
     }

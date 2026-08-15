@@ -17,34 +17,17 @@ class Solution {
     public int diameterOfBinaryTree(TreeNode root) {
         //your code goes here
         if(root == null)return 0;
-
-        Stack<TreeNode> st = new Stack<>();
-
-        st.push(root);
-
-        int maxDia = 0;
-
-        while(!st.isEmpty()){
-            TreeNode curr = st.pop();
-            if(curr.left != null){
-                st.push(curr.left);
-            }
-            if(curr.right != null){
-                st.push(curr.right);
-            }
-
-            int lH = height(curr.left);
-            int rH = height(curr.right);
-
-            int diameter = lH+rH;
-
-            maxDia = Math.max(maxDia,diameter);
-
-        }
-        return maxDia;
+        int[] maxDia = new int[1];
+        height(root,maxDia);
+        return maxDia[0];
     }
-    public int height(TreeNode root){
+    public int height(TreeNode root,int[] maxDia){
         if(root == null)return 0;
-        return 1+Math.max(height(root.left),height(root.right));
+        int lH = height(root.left,maxDia);
+        int rH = height(root.right,maxDia);
+
+        maxDia[0] = Math.max(maxDia[0],lH+rH);
+
+        return 1+Math.max(lH,rH);
     }
 }

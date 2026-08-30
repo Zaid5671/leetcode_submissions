@@ -24,7 +24,6 @@ class Solution {
             big = maxIdx;
             small = minIdx;
         }
-        System.out.println(big + " " + small);
         return Math.min(big+1,Math.min(((nums.length-big)+(small+1)),nums.length-small));
     }
 }

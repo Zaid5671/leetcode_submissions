@@ -28,8 +28,8 @@ class Solution {
             if(currSum > maxSum){
                 k--;
                 currSum = a[i];
+                if(k <= 0)return false;
             }
-            if(k <= 0)return false;
         }
         return true;
     }

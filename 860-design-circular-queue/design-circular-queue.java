@@ -2,40 +2,33 @@ class MyCircularQueue {
     int[] q;
     int front;
     int rear;
+    int k;
     int size;
     public MyCircularQueue(int k) {
-       this.q = new int[k];
-       // intialize to 0 instead of -1 so that at first insertion both are at 0
-       front = 0;
-       rear = -1;
-       size = 0;
+        q = new int[k];
+        front = 0;
+        rear = -1;
+        this.k = k;
+        size = 0;
     }
     
     public boolean enQueue(int value) {
         if(isFull())return false;
-        // if(size == 0){
-        //     front = 0;
-        //     rear = 0;
-        // }else{
-
-        rear = (rear+1)%q.length;
-        q[rear] = value;
         size++;
+        rear = (rear+1)%k;
+        q[rear] = value;
         return true;
     }
     
     public boolean deQueue() {
-        if(isEmpty()){
-            return false;
+        if(isEmpty())return false;
+        if(front==rear){
+            front = 0;
+            rear = -1;
+        }else{
+            front = (front+1)%k;
         }
         size--;
-        // if(rear == front){
-        // not needed cause the operations are circulr
-        //     front = -1;
-        //     rear = -1;
-        //     return true;
-        // }
-        front = (front+1)%q.length;
         return true;
     }
     
@@ -50,11 +43,11 @@ class MyCircularQueue {
     }
     
     public boolean isEmpty() {
-        return size == 0;
+        return rear == -1;
     }
     
     public boolean isFull() {
-        return size == q.length;
+        return size == k;
     }
 }
 

@@ -22,7 +22,6 @@ class Solution {
         //A while loop only breaks when `l` is equal to `r`. 
         //Hence you could use any of them for the loop. 
         //Also hence, you do not use `mid` but you use `L` or `R` because, from the whole of the array, you took that one index. You shrunk the space like that so that you could have that one index, which could be the perfect starting index. `mid` is something that is always changing; that is just a guess. I know that in general the answer is `mid`, but not here. That is only when you have to find something. Here you are shrinking the search space to exactly one element and that element is equal to `L = R`. 
-        System.out.println(l + "  " + r);
         for (int i = l; i <= l + k - 1; i++) {
             list.add(arr[i]);
         }

@@ -1,17 +1,20 @@
 class Solution {
     public boolean isValid(String s) {
         Deque<Character> st = new ArrayDeque<>();
-        
-        for(int i = 0 ;i<s.length();i++){
-            char curr = s.charAt(i);
-            if(curr == '{' || curr == '[' || curr == '('){
-                st.push(curr);
-            }else if(st.isEmpty()){
-                return false;
-            }else if((curr == '}' && st.peek()=='{') || (curr == ']' && st.peek()=='[') || (curr == ')' && st.peek()=='(')){
-                st.pop();
+
+        for(int i = 0;i<s.length();i++){
+            Character curr = s.charAt(i);
+            if(!st.isEmpty()){
+                //check top and incoming element
+                Character top = st.peek();
+                if((top == '[' && curr == ']')||(top == '{' && curr == '}')||(top == '(' && curr == ')')){
+                    st.pop();
+                }
+                else{/// push the curr element otherwise '({[)' will give true
+                    st.push(curr);
+                }
             }else{
-                return false;
+                st.push(curr);
             }
         }
 

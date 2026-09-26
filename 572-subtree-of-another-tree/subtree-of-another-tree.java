@@ -15,6 +15,8 @@
  */
 class Solution {
     public boolean isSubtree(TreeNode root, TreeNode subRoot) {
+        // no need to compare every node with the helper function 
+        // only compare those nodes which are equal val at start 
         Queue<TreeNode> q = new LinkedList<>();
         boolean isAns = false;  
         q.offer(root);

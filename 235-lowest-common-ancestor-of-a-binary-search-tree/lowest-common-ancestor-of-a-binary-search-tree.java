@@ -4,35 +4,26 @@
  *     int val;
  *     TreeNode left;
  *     TreeNode right;
- *     TreeNode() {}
- *     TreeNode(int val) { this.val = val; }
- *     TreeNode(int val, TreeNode left, TreeNode right) {
- *         this.val = val;
- *         this.left = left;
- *         this.right = right;
- *     }
+ *     TreeNode(int x) { val = x; }
  * }
  */
 
 class Solution {
-    public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
-        // since it is a BST the nodes will split at one point and that point is the LCA
+    // public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
+    //     return isLCA(root,p,q);
+    // }
+    public TreeNode lowestCommonAncestor(TreeNode root,TreeNode p, TreeNode q){
+        if(root == null)return null;
+        if(root.val == p.val || root.val == q.val)return root;
+        TreeNode left = lowestCommonAncestor(root.right,p,q);
+        TreeNode right = lowestCommonAncestor(root.left,p,q);
 
-        while(true){
-            int currVal = root.val;
-            if(p.val == currVal)return root;
-            if(q.val == currVal)return root;
-            if(p.val<currVal && q.val<currVal){
-                root = root.left;
-            }
-            else if(p.val>currVal && q.val>currVal){
-                root = root.right;
-            }
-            else{
-                break;
-            }
+        if(left != null && right != null){
+            return root;
+        }else if(left == null && right == null){
+            return null;
         }
 
-        return root;
+        return (left == null) ? right : left;
     }
 }

@@ -3,7 +3,7 @@ class Solution {
         // opening coutn and closing count maintain
         int open = 0;
         int close = 0;
-        String ans = "";
+        StringBuilder ans = new StringBuilder();
         open++;
         for(int i = 1;i<s.length();i++){
             if(s.charAt(i) == '('){
@@ -17,10 +17,10 @@ class Solution {
                 open++;
                 continue;
             }else{
-                ans += s.charAt(i);
+                ans.append(s.charAt(i));
             }
         }
 
-        return ans;
+        return ans.toString();
     }
 }

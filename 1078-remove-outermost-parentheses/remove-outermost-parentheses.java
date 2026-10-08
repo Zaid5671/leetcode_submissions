@@ -3,7 +3,7 @@ class Solution {
         // opening coutn and closing count maintain
         int open = 0;
         int close = 0;
-        List<Character> list = new ArrayList<>(); 
+        String ans = "";
         open++;
         for(int i = 1;i<s.length();i++){
             if(s.charAt(i) == '('){
@@ -12,19 +12,13 @@ class Solution {
             else{
                 close++;
             }
-            if(open == close){
+            if(open == close){// dont append
                 i++;
                 open++;
-                continue
-                ;
+                continue;
             }else{
-                list.add(s.charAt(i));
+                ans += s.charAt(i);
             }
-        }
-
-        String ans = "";
-        for(int i = 0;i<list.size();i++){
-            ans += list.get(i);
         }
 
         return ans;

@@ -19,35 +19,32 @@ class Solution {
             slow = slow.next;
             fast = fast.next.next;
         }
+
+        // we are at mid
+        ListNode l2 = slow;
         prev.next = null;
-
-        ListNode l2 = reverseList(slow);
         ListNode l1 = head;
-        
-        // draw and see how it works
-        while(l1.next != null){
-            // store next p of l1 and l2
-            ListNode l1N = l1.next;
-            ListNode l2N = l2.next;
 
-            l2.next = l1.next;
+        l2 = reverseList(l2);
+
+        ListNode n1 = l1.next;
+        ListNode n2 = l2.next;
+
+        while(n1 != null){
             l1.next = l2;
-            l1 = l1N;
-            l2 = l2N;
+            l2.next = n1;
+            l1 = n1;
+            l2 = n2;
+            n1 = n1.next;
+            n2 = n2.next;
         }
-        // for last elemnet;
+
         l1.next = l2;
-        
     }
-    public ListNode reverseList(ListNode head) {
-        if(head == null || head.next == null){
-            return head;
-        }
-        ListNode curr = head;
+    public ListNode reverseList(ListNode head){
         ListNode prev = null;
-        
+        ListNode curr = head;
         while(curr != null){
-            // curr.next == prev
             ListNode next = curr.next;
             curr.next = prev;
             prev = curr;

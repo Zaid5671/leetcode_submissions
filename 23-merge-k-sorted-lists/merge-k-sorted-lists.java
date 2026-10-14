@@ -10,61 +10,62 @@
  */
 class Solution {
     public ListNode mergeKLists(ListNode[] lists) {
-        //convert in int array
-
         ListNode main = new ListNode(-1);
-        ListNode mainH = main;
+        ListNode holder = main; 
         for(ListNode list : lists){
             main.next = list;
             while(main.next != null){
                 main = main.next;
             }
         }
-
-        // now sort main list
-        return sortList(mainH.next);
+        main = sortList(holder.next);
+        return main;
     }
-    public ListNode sortList(ListNode head) {
-        head = mergeSort(head);
-        return head;    
-    }
-    public ListNode mergeSort(ListNode head){
+    public ListNode sortList(ListNode head){
         if(head == null || head.next == null){
             return head;
         }
+        //half the list
         ListNode slow = head;
         ListNode fast = head;
-        ListNode prev = head;
+        ListNode prev = slow;
         while(fast != null && fast.next != null){
             prev = slow;
             slow = slow.next;
             fast = fast.next.next;
         }
         prev.next = null;
-        ListNode sortedLeft = mergeSort(head);
-        ListNode sortedRight = mergeSort(slow);
 
-        return mergeTwoLists(sortedLeft,sortedRight);
+        ListNode l1 = sortList(head);
+        ListNode l2 = sortList(slow);
+        return merge(l1,l2); 
     }
-    public ListNode mergeTwoLists(ListNode list1, ListNode list2) {
+    public ListNode merge(ListNode l1, ListNode l2){
+        if(l1 == null){
+            return l2;
+        }
+        if(l2 == null){
+            return l1;
+        }
+
         ListNode ans = new ListNode(-1);
-        ListNode ansHolder = ans;
-        while(list1 != null && list2 != null){
-            if(list1.val<=list2.val){
-                ans.next = new ListNode(list1.val);
-                list1 = list1.next;
+        ListNode ansH = ans;
+        while(l1 != null && l2 != null){
+            if(l1.val <= l2.val){
+                ans.next = l1;
+                l1 = l1.next;
             }else{
-                ans.next = new ListNode(list2.val);
-                list2 = list2.next;
+                ans.next = l2;
+                l2 = l2.next;
             }
             ans = ans.next;
         }
-        if(list1 != null){
-            ans.next = list1;   
+        if(l1 != null){
+            ans.next = l1;
         }
-        if(list2 != null){
-            ans.next = list2;
+        if(l2 != null){
+            ans.next = l2;
         }
-        return ansHolder.next;
+        return ansH.next;
     }
 }

@@ -5,7 +5,7 @@ class Solution {
         digits[n-1] += 1;
         int carry = digits[n-1]/10;
         digits[n-1] %= 10;
-        
+
         int i = n-2;
         while(i>=0 && carry != 0){
             digits[i] += carry;
@@ -18,9 +18,6 @@ class Solution {
             //add element
             int[] ans = new int[n+1];
             ans[0] = carry;
-            for(int j = 0;j<n;j++){
-                ans[j+1] = digits[j];
-            }
             return ans;
         }
 

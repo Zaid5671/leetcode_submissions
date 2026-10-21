@@ -4,39 +4,42 @@ class Solution {
         int[] dS = new int[n];
 
         for(int i = 0;i<n;i++){
-            int sum = 0;
             int curr = nums[i];
+            int sum = 0;
             while(curr != 0){
                 sum += curr%10;
                 curr /= 10;
             }
             dS[i] = sum;
-            // System.out.println(dS[i]);
+            // System.out.println(sum);
         }
 
-        int[][] pairs = new int[n][2];
+        // dS = [9,9,9,7]
+
+        int[][] pairs = new int[n][2];// stoes val and orgIdx
 
         for(int i = 0;i<n;i++){
             pairs[i][0] = dS[i];
             pairs[i][1] = i;
         }
 
-        Arrays.sort(pairs, (a,b)->{
+        // pairs = [[9,1],[9,2],[9,3],[7,4]]
+
+        // sort pairs
+
+        Arrays.sort(pairs,(a,b)->{
+            // System.out.println(a[0] + " " + b[0]);
             if(a[0]==b[0]){
-                //cmp by orginal values in nums 
-                return nums[a[1]]-nums[b[1]];
+                return nums[a[1]]-nums[b[1]]; // diff of org vals
             }
             return a[0]-b[0];
         });
 
-        // for(int i = 0;i<n;i++){
-        //     System.out.println(pairs[i][0] + " " + pairs[i][1]);
-        // }
+        int swaps = 0;
+
         boolean[] vis = new boolean[n];
 
-        int swap = 0;
-
-        for(int i = 0;i<n;i++){
+        for(int i =0;i<n;i++){
             int orgIdx = pairs[i][1];
 
             if(vis[i] || orgIdx == i){
@@ -45,16 +48,17 @@ class Solution {
 
             int cycles = 0;
             int j = i;
-
             while(!vis[j]){
                 vis[j] = true;
                 j = pairs[j][1];
                 cycles++;
             }
+
             if(cycles>0){
-                swap += cycles-1;
+                swaps += cycles-1;
             }
-        }
-        return swap;   
+        } 
+
+        return swaps;
     }
 }
